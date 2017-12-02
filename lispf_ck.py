@@ -23,3 +23,15 @@ parser = ox.make_parser([
     ('term : NUMBER', lambda x: int(x)),
     ('term : NAME', lambda x: x),
 ], tokens_list)
+
+collection = [0]
+
+@click.command()
+@click.argument('lispf_data', type=click.File('r'))
+def ast(lispf_data):
+    """
+    Generate ast of lispf_code
+    """
+    collection = lispf_data.read()
+    tokens = [token for token in (lexer(collection)) if token.type != 'COMMENT' and token.type != 'NEWLINE' ]
+    ast = parser(tokens)
