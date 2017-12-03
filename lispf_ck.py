@@ -71,15 +71,20 @@ def eval(ast, p):
                 collection[p] = (collection[p] + int(item[1])) % 256;
             elif item[0] == 'sub':
                 collection[p] = (collection[p] - int(item[1])) % 256;
+
         elif item == 'right':
             p += 1
             if p == len(collection):
                 collection.append(0)
         elif item == 'left':
             p -= 1
+        elif item == 'print':
+            print(chr(collection[p]), end='\n')
         elif item == 'inc':
             collection[p] = (collection[p] + 1) % 256;
         elif item == 'dec':
             collection[p] = (collection[p] - 1) % 256;
+        elif item == 'read':
+            collection[p] = ord(getche())
 
 ast()
