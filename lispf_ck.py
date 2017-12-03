@@ -1,4 +1,6 @@
 import ox
+import click
+from getch import getche
 
 """
 Create tokens list and its lexer and parser
@@ -43,7 +45,33 @@ def eval(ast, p):
     Evaluates a result from an AST of lispf_ck code
     """
     for item in ast:
-        if item == 'right':
+        if isinstance(item, list):
+            if item[0] == 'do-after':
+                x = 0
+                while x < len(item[2]):
+                    tape = ['do', item[1], item[2][x]]
+                    eval(tape, p)
+                    x += 1
+
+            elif item[0] == 'do':
+                x = 1
+                while i < len(item):
+                    eval(item[x], p)
+                    x += 1
+            elif item[0] == 'loop':
+                while collection[p] != 0:
+                    eval(item[1:len(item)], p)
+            elif item[0] == 'do-before':
+                z = 0
+                while z < len(item[2]):
+                    tape = ['do', item[2][z], item[1]]
+                    eval(tape, p)
+                    z += 1
+            elif item[0] == 'add':
+                collection[p] = (collection[p] + int(item[1])) % 256;
+            elif item[0] == 'sub':
+                collection[p] = (collection[p] - int(item[1])) % 256;
+        elif item == 'right':
             p += 1
             if p == len(collection):
                 collection.append(0)
@@ -53,3 +81,5 @@ def eval(ast, p):
             collection[p] = (collection[p] + 1) % 256;
         elif item == 'dec':
             collection[p] = (collection[p] - 1) % 256;
+
+ast()
