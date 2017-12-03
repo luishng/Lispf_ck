@@ -6,10 +6,11 @@
 
 **Necessary packages:**
 
-```$ python3 -m pip3 install click``` 
+```$ pip3 install click``` 
 
-```$ python3 -m pip3 install ox-parser```
+```$ pip3 install ox-parser```
 
+```$ pip3 install getch```
 
 Felipe Osorio - 140138676
 
